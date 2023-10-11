@@ -130,3 +130,18 @@ body {
   color: #fff;
   text-align: center;
 }
+
+.btn-edit {
+  border-radius: 8px;
+  color: #fff;
+  background-color: #3E5E93;
+  border: 1px solid #3E5E93;
+  transition: all 0.4s ;
+}
+
+@media (min-width: 1201px) {
+  .btn-edit:hover {
+    color: #3E5E93;
+    background-color: #fff;
+  }
+}
