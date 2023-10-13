@@ -139,9 +139,17 @@ body {
   transition: all 0.4s ;
 }
 
+
+
 @media (min-width: 1201px) {
   .btn-edit:hover {
     color: #3E5E93;
     background-color: #fff;
+  }
+  .table__name:hover {
+    cursor: pointer;
+  }
+  .table__surname:hover {
+    cursor: pointer;
   }
 }
