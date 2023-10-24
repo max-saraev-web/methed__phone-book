@@ -397,7 +397,7 @@ console.log(getStorage());
             // a должно быть равным b
             return 0;
           }
-        });.
+        });
         list.innerHTML = '';
         allRow = renderContacts(list, currentStorage);
         setStorage(currentStorage);
