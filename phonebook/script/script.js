@@ -49,9 +49,12 @@
     localStorage.setItem(key, JSON.stringify(obj));
   };
   // ! - Задание 3
-  // const removeStorage = (params) => {
-    
-  // };
+  const removeStorage = (num, key = 'phoneBook') => {
+    const currentStorage = getStorage();
+    const sortedStorage = currentStorage.filter(obj =>
+      obj.phone !== num);
+    localStorage.setItem(key, JSON.stringify(sortedStorage));
+  };
   const createContainer = () => {
     const container = document.createElement('div');
     container.classList.add('container');
@@ -318,15 +321,11 @@
       if (target.closest('.del-icon')) {
         const phoneNumber =
           target.parentElement.parentElement.phoneLink.textContent;
-        const currentStorage = getStorage();
-        const sortedStorage = currentStorage.filter(obj =>
-          obj.phone !== phoneNumber);
-        setStorage(sortedStorage);
+        removeStorage(phoneNumber);
         target.closest('.contact').remove();
       }
     });
   };
-console.log(getStorage());
   const formControl = (form, list, closeModal) => {
     form.addEventListener('submit', ev => {
       ev.preventDefault();
