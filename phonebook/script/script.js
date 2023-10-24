@@ -1,32 +1,57 @@
 'use strict';
-const data = [
-  {
-    name: 'Иван',
-    surname: 'Петров',
-    phone: '+79514545454',
-  },
-  {
-    name: 'Игорь',
-    surname: 'Семёнов',
-    phone: '+79999999999',
-  },
-  {
-    name: 'Семён',
-    surname: 'Иванов',
-    phone: '+79800252525',
-  },
-  {
-    name: 'Мария',
-    surname: 'Попова',
-    phone: '+79876543210',
-  },
-];
+// const data = [
+//   {
+//     name: 'Иван',
+//     surname: 'Петров',
+//     phone: '+79514545454',
+//   },
+//   {
+//     name: 'Игорь',
+//     surname: 'Семёнов',
+//     phone: '+79999999999',
+//   },
+//   {
+//     name: 'Семён',
+//     surname: 'Иванов',
+//     phone: '+79800252525',
+//   },
+//   {
+//     name: 'Мария',
+//     surname: 'Попова',
+//     phone: '+79876543210',
+//   },
+// ];
 
 {
-  const addContactData = contact => {
-    data.push(contact);
+  // ! - Пока не знаю как заюзать, но пусть будет
+  const getLocalStorageData = () => Object.fromEntries(localStorage)
+      .reduce((acc, [key, value]) => {
+        let newValue;
+        try {
+          newValue = JSON.parse(value);
+        } catch (err) {
+          newValue = value;
+        }
+        return {
+          ...acc,
+          [key]: newValue,
+        };
+      },
+      {});
+  const addContactData = (arr, contact) => {
+    arr.push(contact);
   };
-
+  // ! - задание 1
+  const getStorage = (key = 'phoneBook') =>
+    (localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : []);
+  // ! - задание 2
+  const setStorage = (obj, key = 'phoneBook') => {
+    localStorage.setItem(key, JSON.stringify(obj));
+  };
+  // ! - Задание 3
+  // const removeStorage = (params) => {
+    
+  // };
   const createContainer = () => {
     const container = document.createElement('div');
     container.classList.add('container');
@@ -287,15 +312,21 @@ const data = [
         del.classList.toggle('is-visible');
       });
     });
-
+    // ! - работаю над этим сейчас
     list.addEventListener('click', ev => {
       const target = ev.target;
       if (target.closest('.del-icon')) {
+        const phoneNumber =
+          target.parentElement.parentElement.phoneLink.textContent;
+        const currentStorage = getStorage();
+        const sortedStorage = currentStorage.filter(obj =>
+          obj.phone !== phoneNumber);
+        setStorage(sortedStorage);
         target.closest('.contact').remove();
       }
     });
   };
-
+console.log(getStorage());
   const formControl = (form, list, closeModal) => {
     form.addEventListener('submit', ev => {
       ev.preventDefault();
@@ -303,20 +334,20 @@ const data = [
 
       const newContact = Object.fromEntries(formData);
       addContactPage(newContact, list);
-      addContactData(newContact);
-
+      const currentStorage = getStorage();
+      addContactData(currentStorage, newContact);
+      setStorage(currentStorage);
       form.reset();
       closeModal();
     });
   };
-
   const init = (selectorApp, title) => {
     const app = document.querySelector(selectorApp);
 
     // ! - Деструктуризация
     const {list, logo, btnAdd, btnDel, form, formOverlay} =
       renderPhoneBook(app, title);
-    let allRow = renderContacts(list, data);
+    let allRow = renderContacts(list, getStorage());
     const {closeModal} = modalControl(btnAdd, formOverlay);
 
     // * - Функционал
@@ -336,7 +367,8 @@ const data = [
     app.addEventListener('click', ev => {
       const target = ev.target;
       if (target.closest('.table__name')) {
-        data.sort((a, b) => {
+        const currentStorage = getStorage();
+        currentStorage.sort((a, b) => {
           {
             if (a.name > b.name) {
               return 1;
@@ -349,10 +381,12 @@ const data = [
           }
         });
         list.innerHTML = '';
-        allRow = renderContacts(list, data);
+        allRow = renderContacts(list, currentStorage);
+        setStorage(currentStorage);
       }
       if (target.closest('.table__surname')) {
-        data.sort((a, b) => {
+        const currentStorage = getStorage();
+        currentStorage.sort((a, b) => {
           {
             if (a.surname > b.surname) {
               return 1;
@@ -363,9 +397,10 @@ const data = [
             // a должно быть равным b
             return 0;
           }
-        });
+        });.
         list.innerHTML = '';
-        allRow = renderContacts(list, data);
+        allRow = renderContacts(list, currentStorage);
+        setStorage(currentStorage);
       }
     });
   };
