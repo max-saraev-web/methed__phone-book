@@ -49,11 +49,11 @@
     localStorage.setItem(key, JSON.stringify(obj));
   };
   // ! - Задание 3
-  const removeStorage = (num, key = 'phoneBook') => {
+  const removeStorage = num => {
     const currentStorage = getStorage();
     const sortedStorage = currentStorage.filter(obj =>
       obj.phone !== num);
-    localStorage.setItem(key, JSON.stringify(sortedStorage));
+    setStorage(sortedStorage);
   };
   const createContainer = () => {
     const container = document.createElement('div');
