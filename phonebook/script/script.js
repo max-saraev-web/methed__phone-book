@@ -15,7 +15,7 @@ const {sortControl, hoverRow, deleteControl, formControl,
 
     // * - Функционал
     hoverRow(allRow, logo);
-    sortControl(app, list, allRow);
+    sortControl(app, list);
     deleteControl(btnDel, list);
     formControl(form, list, closeModal);
   };
