@@ -1,4 +1,5 @@
 import create from './createElements.js';
+import { renderContacts } from './render.js';
 import {addContactData, getStorage, removeStorage,
   setStorage} from './serviceStorage.js';
 
@@ -60,7 +61,7 @@ export const formControl = (form, list, closeModal) => {
     closeModal();
   });
 };
-export const sortControl = app => {
+export const sortControl = (app, list) => {
   app.addEventListener('click', ev => {
     const target = ev.target;
     if (target.closest('.table__name')) {
@@ -77,8 +78,8 @@ export const sortControl = app => {
         }
       });
       list.innerHTML = '';
-      allRow = renderContacts(list, currentStorage);
       setStorage(currentStorage);
+      renderContacts(list, currentStorage);
     }
     if (target.closest('.table__surname')) {
       const currentStorage = getStorage();
@@ -94,8 +95,8 @@ export const sortControl = app => {
         }
       });
       list.innerHTML = '';
-      allRow = renderContacts(list, currentStorage);
       setStorage(currentStorage);
+      renderContacts(list, currentStorage);
     }
   });
 };
