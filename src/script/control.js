@@ -1,7 +1,7 @@
-import create from './createElements.js';
-import { renderContacts } from './render.js';
+import create from './createElements';
+import { renderContacts } from './render';
 import {addContactData, getStorage, removeStorage,
-  setStorage} from './serviceStorage.js';
+  setStorage} from './serviceStorage';
 
 const {createRow} = create;
 export const addContactPage = (contact, list) => {

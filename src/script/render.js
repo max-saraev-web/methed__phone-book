@@ -1,4 +1,4 @@
-import create from './createElements.js';
+import create from './createElements';
 const {
   createRow,
   createForm,

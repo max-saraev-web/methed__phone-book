@@ -1,6 +1,13 @@
-import {renderPhoneBook, renderContacts} from './modules/render.js';
-import {getStorage} from './modules/serviceStorage.js';
-import * as control from './modules/control.js';
+import {renderPhoneBook, renderContacts} from './script/render';
+import {getStorage} from './script/serviceStorage';
+import * as control from './script/control';
+
+// ? styles
+import './scss/index.scss';
+
+// ? html
+import './index.html';
+
 
 const {sortControl, hoverRow, deleteControl, formControl,
   modalControl} = control;
